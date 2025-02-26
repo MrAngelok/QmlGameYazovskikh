@@ -21,6 +21,7 @@ qt_add_qml_module(${nameApp}
     VERSION 1.0
     QML_FILES
         src/qml/Main.qml
+        QML_FILES src/qml/GamePalette.qml
 )
 
 # Подключаем необходимые модули Qt
