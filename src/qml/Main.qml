@@ -1,5 +1,5 @@
 import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick.Controls.Material 2.15
 
 ApplicationWindow {
     visible: true
@@ -7,24 +7,26 @@ ApplicationWindow {
     height: 480
     title: "TheGame"
 
-    GamePalette {
-        id: customPalette
-    }
-
     // Центральный контент
     Rectangle {
         anchors.fill: parent
-        color: customPalette.background
+        color: Theme.background
 
-        Row {
-            Repeater {
-                model: customPalette.rarityLevels
-                delegate: Rectangle {
-                    width: 50
-                    height: 50
-                    color: modelData // Например, фиолетовый для эпической фигуры
-                }
+        Column {
+            anchors.centerIn: parent
+            spacing: 20
+
+            Button {
+                text: "Play"
+                Material.background: Theme.button
+                Material.foreground: Theme.buttonText
             }
+        }
+
+        Rectangle {
+            width: 50
+            height: 50
+            color: Theme.rarityColors[Theme.Rarity.Legendary]
         }
     }
 }

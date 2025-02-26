@@ -1,26 +1,18 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-// #include <QDirIterator>
+#include "core/theme_singleton.h"  // Подключаем singleton
 
 int main(int argc, char *argv[]) {
     QGuiApplication app(argc, argv);
-
     QQmlApplicationEngine engine;
 
-    // QDirIterator it(":/", QDirIterator::Subdirectories);
-    // while (it.hasNext()) {
-    //     qDebug() << it.next();
-    // }
+    // Регистрируем C++ Singleton
+    registerTheme();
 
-    const QUrl url(QUrl(QStringLiteral("qrc:/qt/qml/TheGame/src/qml/Main.qml")));
+    engine.loadFromModule("TheGame", "Main");
 
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
-                     &app, [url](QObject *obj, const QUrl &objUrl) {
-                         if (!obj && url == objUrl)
-                             QCoreApplication::exit(-1);
-                     }, Qt::QueuedConnection);
-
-    engine.load(url);
+    if (engine.rootObjects().isEmpty())
+        return -1;
 
     return app.exec();
 }
